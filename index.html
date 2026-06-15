@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BRIGHTLY Intelligence Browser</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+
+<canvas id="bgCanvas"></canvas>
+<div class="noise"></div>
+<div class="vignette"></div>
+
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">B</div>
+      <div>
+        <div class="brand-title">BRIGHTLY</div>
+        <div class="brand-sub">Intelligence Browser</div>
+      </div>
+    </div>
+
+    <nav class="topnav">
+      <button class="nav-pill" id="openSystemBtn">System</button>
+      <button class="nav-pill" id="openToolsBtn">Tools</button>
+      <button class="nav-pill" id="openAiBtn">AI Assistant</button>
+      <button class="nav-pill primary" id="healthBtn">API Status</button>
+    </nav>
+  </header>
+
+  <main class="hero">
+    <section class="hero-left">
+      <div class="tag">Multi-Agent AI · OSINT · Security · Verified Profile</div>
+
+      <h1>Search anything safely.</h1>
+
+      <p>
+        BRIGHTLY analyzes names, usernames, phone numbers, domains and links through
+        a legal multi-agent intelligence workflow. Public data is shown, restricted
+        data is protected.
+      </p>
+
+      <div class="search-panel">
+        <input
+          id="mainSearchInput"
+          type="text"
+          placeholder='Try: "Аян", "+77477850528", "@leaderkazakhstan", "example.com", "https://example.com/login"'
+          autocomplete="off"
+        />
+        <button id="mainAnalyzeBtn">Analyze</button>
+      </div>
+
+      <div class="example-row">
+        <button class="example-btn" data-example="Аян">Аян</button>
+        <button class="example-btn" data-example="+77477850528">+77477850528</button>
+        <button class="example-btn" data-example="@leaderkazakhstan">@leaderkazakhstan</button>
+        <button class="example-btn" data-example="example.com">example.com</button>
+        <button class="example-btn" data-example="https://example.com/login">Suspicious URL</button>
+      </div>
+    </section>
+
+    <section class="hero-right">
+      <div class="orb-card">
+        <div class="orb-core"></div>
+        <div class="orb-ring ring1"></div>
+        <div class="orb-ring ring2"></div>
+        <div class="orb-ring ring3"></div>
+
+        <div class="orb-info">
+          <span>5 AGENTS</span>
+          <strong>ONLINE</strong>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="agent-strip">
+    <div class="agent-mini">
+      <span>01</span>
+      <strong>Legal Filter</strong>
+      <p>Blocks restricted requests</p>
+    </div>
+    <div class="agent-mini">
+      <span>02</span>
+      <strong>Research Agent</strong>
+      <p>Collects public sources</p>
+    </div>
+    <div class="agent-mini">
+      <span>03</span>
+      <strong>OSINT Analyst</strong>
+      <p>Structures intelligence</p>
+    </div>
+    <div class="agent-mini">
+      <span>04</span>
+      <strong>Security Analyst</strong>
+      <p>Scores risks</p>
+    </div>
+    <div class="agent-mini">
+      <span>05</span>
+      <strong>Report Writer</strong>
+      <p>Creates final report</p>
+    </div>
+  </section>
+
+  <section class="dashboard">
+
+    <div class="panel panel-large">
+      <div class="panel-head">
+        <div>
+          <h2>Multi-Agent Workflow</h2>
+          <p id="workflowState">Waiting for input</p>
+        </div>
+        <button class="small-btn" id="clearBtn">Clear</button>
+      </div>
+
+      <div id="pipelineView" class="pipeline-view">
+        Enter a query to activate the intelligence pipeline.
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>Intelligence Report</h2>
+          <p>Structured summary</p>
+        </div>
+      </div>
+
+      <div id="reportView" class="scroll-box">
+        No report generated.
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>Sources</h2>
+          <p>Public indexed results</p>
+        </div>
+      </div>
+
+      <div id="sourcesView" class="scroll-box">
+        No sources yet.
+      </div>
+    </div>
+
+  </section>
+
+</div>
+
+<!-- TOOLS MODAL -->
+<div class="modal-bg" id="toolsModal">
+  <div class="modal modal-wide">
+    <div class="modal-head">
+      <div>
+        <h2>BRIGHTLY Tools</h2>
+        <p>Advanced intelligence modules</p>
+      </div>
+      <button class="modal-close" id="closeToolsBtn">×</button>
+    </div>
+
+    <div class="tools-grid">
+      <button class="tool-card" onclick="openTool('verifiedIdentity')">
+        <strong>Verified Identity Profile</strong>
+        <span>Consent-based phone, SIM layer and business record</span>
+      </button>
+
+      <button class="tool-card" onclick="openTool('publicIntel')">
+        <strong>Public Intelligence</strong>
+        <span>Name, phone, email, domain and public-source report</span>
+      </button>
+
+      <button class="tool-card" onclick="openTool('usernameIntel')">
+        <strong>Username Intelligence</strong>
+        <span>Sherlock-powered username footprint check</span>
+      </button>
+
+      <button class="tool-card" onclick="openTool('phoneMetadata')">
+        <strong>Phone Metadata</strong>
+        <span>Country, region, timezone and operator metadata</span>
+      </button>
+
+      <button class="tool-card" onclick="openTool('domainSecurity')">
+        <strong>Domain Security</strong>
+        <span>Domain public reputation and risk context</span>
+      </button>
+
+      <button class="tool-card" onclick="openTool('passwordSafety')">
+        <strong>Password Safety</strong>
+        <span>Local-only password strength check</span>
+      </button>
+
+      <button class="tool-card" onclick="openTool('linkExtractor')">
+        <strong>Link Extractor</strong>
+        <span>Extract and scan links from suspicious text</span>
+      </button>
+
+      <button class="tool-card" onclick="openTool('reportExport')">
+        <strong>Report Export</strong>
+        <span>Copy final report as documentation</span>
+      </button>
+    </div>
+
+    <div class="tool-panel" id="toolPanel">
+      Select a tool to start.
+    </div>
+  </div>
+</div>
+
+<!-- AI MODAL -->
+<div class="modal-bg" id="aiModal">
+  <div class="modal ai-modal">
+    <div class="modal-head">
+      <div>
+        <h2>BRIGHTLY AI Assistant</h2>
+        <p>DeepSeek-powered legal intelligence assistant</p>
+      </div>
+      <button class="modal-close" id="closeAiBtn">×</button>
+    </div>
+
+    <div class="chat-box" id="chatBox">
+      <div class="chat-msg bot">
+        <strong>BRIGHTLY AI</strong>
+        <p>Ask me to explain a report, analyze a suspicious link, or summarize public-source findings.</p>
+      </div>
+    </div>
+
+    <div class="chat-input-row">
+      <input id="aiInput" type="text" placeholder="Ask BRIGHTLY AI..."/>
+      <button id="sendAiBtn">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- SYSTEM MODAL -->
+<div class="modal-bg" id="systemModal">
+  <div class="modal modal-wide">
+    <div class="modal-head">
+      <div>
+        <h2>System Architecture</h2>
+        <p>Multi-agent AI workflow overview</p>
+      </div>
+      <button class="modal-close" id="closeSystemBtn">×</button>
+    </div>
+
+    <div class="architecture">
+      <div class="arch-step">
+        <span>Input</span>
+        <strong>User Query</strong>
+        <p>Name, phone, username, domain, URL or general topic.</p>
+      </div>
+      <div class="arch-step">
+        <span>Agent 01</span>
+        <strong>Legal Filter</strong>
+        <p>Approves public-source analysis and blocks restricted requests.</p>
+      </div>
+      <div class="arch-step">
+        <span>Agent 02</span>
+        <strong>Research Agent</strong>
+        <p>Collects open-source results and public metadata.</p>
+      </div>
+      <div class="arch-step">
+        <span>Agent 03</span>
+        <strong>OSINT Analyst</strong>
+        <p>Categorizes and interprets public intelligence.</p>
+      </div>
+      <div class="arch-step">
+        <span>Agent 04</span>
+        <strong>Security Analyst</strong>
+        <p>Evaluates technical and phishing-related risk.</p>
+      </div>
+      <div class="arch-step">
+        <span>Agent 05</span>
+        <strong>Report Writer</strong>
+        <p>Generates final structured documentation.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="renderer.js"></script>
+</body>
+</html>
