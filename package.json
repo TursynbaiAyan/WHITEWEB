@@ -1,0 +1,38 @@
+{
+  "name": "brightly-intelligence-browser",
+  "version": "1.0.0",
+  "description": "BRIGHTLY Intelligence Browser - Multi-Agent AI public intelligence and security browser",
+  "author": "BRIGHTLY",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "set CSC_IDENTITY_AUTO_DISCOVERY=false&& electron-builder --win portable --x64",
+    "build:dir": "electron-builder --dir --win --x64"
+  },
+  "devDependencies": {
+    "electron": "^31.7.7",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "kz.brightly.intelligence.browser",
+    "productName": "BRIGHTLY Intelligence Browser",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "../frontend/**/*"
+    ],
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "signAndEditExecutable": false
+    },
+    "portable": {
+      "artifactName": "BRIGHTLY-Intelligence-Browser.exe"
+    },
+    "publish": null
+  }
+}
